@@ -51,7 +51,11 @@ export function PeopleList() {
           Add relation
         </button>
       </div>
-      <ConnectionGraphViewer users={users} />
+      {users.length > 1 ? (
+        <ConnectionGraphViewer users={users} />
+      ) : (
+        <div> Add another user to view connections </div>
+      )}
     </div>
   );
 }
