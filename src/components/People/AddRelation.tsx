@@ -90,6 +90,7 @@ export function AddRelation({
                 labelText="name"
               />
               <button
+                type="button"
                 title="cancel"
                 class={cancelButton}
                 onClick={() => {
