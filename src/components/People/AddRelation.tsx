@@ -22,8 +22,10 @@ export function AddRelation({
   const [to, setTo] = useState(null);
   const [relation, setRelation] = useState("");
   const allUsers = useContext(UsersContext);
-  const [createNew, setCreateNew] = useState(()=>!allUsers||allUsers.length<2);
-  const [newUserName, setNewUserName] = useState(null); 
+  const [createNew, setCreateNew] = useState(
+    () => !allUsers || allUsers.length < 2
+  );
+  const [newUserName, setNewUserName] = useState(null);
   const fetchUsers = useContext(FetchUsersContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -38,8 +40,10 @@ export function AddRelation({
       !from ||
       (!to && !(newUserName && newUserName.trim())) ||
       !relation.trim()
-    )
+    ) {
+      setLoading(false);
       return;
+    }
     // we do undefined here as JSON.stringify will remove it for us
     const obj = {
       protagonistId: from,
@@ -55,8 +59,8 @@ export function AddRelation({
       close();
     } catch (e) {
       setError(e.message);
-      setLoading(false);
     }
+    setLoading(false);
   }
   return (
     <Modal close={close}>
