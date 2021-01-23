@@ -21,9 +21,9 @@ export function AddRelation({
   const [from, setFrom] = useState(_from);
   const [to, setTo] = useState(null);
   const [relation, setRelation] = useState("");
-  const [createNew, setCreateNew] = useState(false);
-  const [newUserName, setNewUserName] = useState(null);
   const allUsers = useContext(UsersContext);
+  const [createNew, setCreateNew] = useState(()=>!allUsers||allUsers.length<2);
+  const [newUserName, setNewUserName] = useState(null); 
   const fetchUsers = useContext(FetchUsersContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
