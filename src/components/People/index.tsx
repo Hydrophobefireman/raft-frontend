@@ -1,5 +1,30 @@
 import { FetchUsersContext, UsersContext } from "@/ctx";
-import { useCallback, useState } from "@hydrophobefireman/ui-lib";
+import {
+  useCallback,
+  useState,
+  useRef,
+  useEffect,
+} from "@hydrophobefireman/ui-lib";
+
+function useInterval(callback: () => void, delay: number) {
+  const savedCallback = useRef<() => void>();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
 
 import { BoxContainer } from "../BoxContainer";
 import { PeopleList } from "./PeopleList";
@@ -20,7 +45,7 @@ export function People() {
       setError(true);
     }
   }, []);
-
+  useInterval(fetchFunction, 5000);
   useMount(fetchFunction);
 
   if (error)
